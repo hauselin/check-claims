@@ -3,11 +3,12 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
+import streamlit as st
 
 try:
     from auth import google_factcheck_key
 except:
-    pass
+    google_factcheck_key = st.secrets["google_factcheck_key"]
 import requests
 import urllib.parse
 

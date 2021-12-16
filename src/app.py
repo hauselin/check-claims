@@ -14,21 +14,20 @@ from utils import factcheck, get_entities, tokenize, wmd
 
 # %%
 
+st.markdown("## Claim checker")
+st.write(
+    "It takes time to load the `word2vec` model, so be patient when the app runs the first time. Expect to wait up to 5 mins initially (and ~1 min after you enter some text), but subsequent runs will be faster/immediate."
+)
 
+# %%
 @st.cache(allow_output_mutation=True)
-def load_model():
+def load_word2vec_model():
     return api.load("word2vec-google-news-300")
 
 
-model = load_model()
-
+model = load_word2vec_model()
 
 # %%
-
-st.markdown("## Claim checker")
-st.write(
-    "It takes time to load the `word2vec` model, so be patient when the app runs the first time. Expect to wait 1-2 mins, but subsequent runs will be faster/immediate."
-)
 
 text = st.text_input(label="Enter some text (e.g., tweet, headline)")
 
@@ -50,6 +49,7 @@ if not query and text != "":
 if query:
     st.markdown("##### Entities/tokens detected in input")
     st.write(query)
+    st.write("")
 
 
 # %%
