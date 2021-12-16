@@ -39,7 +39,18 @@ nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("spacytextblob")
 doc = nlp(text)
 
-query = get_entities(doc, labels=["PERSON", "ORG", "GPE"], output="list", verbose=True)
+if len(text) > 2:
+    st.write(
+        "Polarity: ",
+        np.round(doc._.polarity, 2),
+        ". Subjectivity: ",
+        np.round(doc._.subjectivity),
+        2,
+    )
+
+query = get_entities(
+    doc, labels=["PERSON", "ORG", "GPE"], output="list", verbose=True, add=True
+)
 print(f"Entities: {query}")
 
 if not query:
@@ -54,7 +65,6 @@ if query:
     st.markdown("##### Entities/tokens detected in input")
     st.write(query)
     st.write("")
-
 
 # %%
 

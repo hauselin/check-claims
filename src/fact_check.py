@@ -34,7 +34,8 @@ np.set_printoptions(
     formatter=None,
 )
 
-model = api.load("word2vec-google-news-300")
+# model = api.load("word2vec-google-news-300")
+model = api.load("glove-wiki-gigaword-50")
 
 #%%
 

@@ -160,7 +160,9 @@ def tokenize(doc, output="string", verbose=False, unique=True):
     return tokens
 
 
-def get_entities(doc, output="string", unique=True, verbose=False, labels=None):
+def get_entities(
+    doc, output="string", unique=True, verbose=False, labels=None, add=True
+):
     entities = []
     for ent in doc.ents:
         if verbose:
@@ -172,6 +174,12 @@ def get_entities(doc, output="string", unique=True, verbose=False, labels=None):
         lemma = ent.lemma_.lower()
         if unique and lemma not in entities or not unique:
             entities.append(lemma)
+    if len(entities) < 3:
+        for token in doc:
+            if token.pos_ in ["NOUN", "VERB", "ADJ", "PART"]:
+                noun = token.lemma_.lower()
+                if unique and noun not in entities or not unique:
+                    entities.append(noun)
     if output == "string":
         return " ".join(entities)
     return entities
