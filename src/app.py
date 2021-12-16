@@ -16,16 +16,20 @@ from utils import factcheck, get_entities, tokenize, wmd
 
 st.markdown("## Claim checker")
 st.write(
-    "It takes time to load the `word2vec` model, so be patient when the app runs the first time. Expect to wait up to 5 mins initially (and ~1 min after you enter some text), but subsequent runs will be faster/immediate."
+    "It takes time to load the model, so be patient when the app runs the first time. Expect to wait up to 5 mins initially, but subsequent runs will run faster/immediately."
 )
 
 # %%
 @st.cache(allow_output_mutation=True)
-def load_word2vec_model():
-    return api.load("word2vec-google-news-300")
+def load_model():
+    # model = api.load("word2vec-google-news-300")
+    # model = api.load("fasttext-wiki-news-subwords-300")
+    model = api.load("glove-wiki-gigaword-50")
+    model.wmdistance("hi", "hi")
+    return model
 
 
-# model = load_word2vec_model()
+model = load_model()
 
 # %%
 
@@ -75,6 +79,7 @@ for r in claims.itertuples():
     dist["language"] = r.languageCode
     dist["rating"] = r.textualRating
     dist["factcheck_site"] = r.url
+    dist["claim"] = r.text
     dist["factcheck_pub"] = r.publisher_site
     dists.append(dist)
 
@@ -98,6 +103,7 @@ cols = [
     "factcheck_site",
     "text_tokens",
     "claim_tokens",
+    "claim",
     "text_polarity",
     "claim_polarity",
     "text_subjectivity",
