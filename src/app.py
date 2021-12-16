@@ -103,8 +103,6 @@ cols = [
     "text_subjectivity",
     "claim_subjectivity",
 ]
-print(similar.columns)
-
 st.write(similar[cols])
 
 #%%
