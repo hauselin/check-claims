@@ -25,7 +25,7 @@ def load_word2vec_model():
     return api.load("word2vec-google-news-300")
 
 
-model = load_word2vec_model()
+# model = load_word2vec_model()
 
 # %%
 
