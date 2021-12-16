@@ -157,3 +157,6 @@ data/
 .streamlit/
 ./src/.streamlit/
 ./src/auth.py
+src/.streamlit/
+src/auth.py
+src/scratch.py
